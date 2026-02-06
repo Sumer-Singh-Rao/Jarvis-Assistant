@@ -38,16 +38,14 @@ except ImportError:
 class JarvisBackend:
     """Main backend class for JARVIS AI Assistant"""
     
-    def __init__(self, api_key: str = None, weather_api_key: str = None):
+    def __init__(self, api_key: str = None, weather_api_key: str = "bd5e378503939ddaee76f12ad7a97608"):
         """Initialize JARVIS with Gemini API key"""
-        # Load API keys from environment variables if not provided
+        # Load API key from environment variable if not provided
         self.api_key = api_key or os.getenv('GEMINI_API_KEY')
-        self.weather_api_key = weather_api_key or os.getenv('WEATHER_API_KEY')
+        self.weather_api_key = weather_api_key
         
         if not self.api_key:
             raise ValueError("Gemini API key not found. Please set GEMINI_API_KEY in .env file")
-        if not self.weather_api_key:
-            print("Warning: Weather API key not found. Weather features will be limited.")
         self.setup_gemini()
         self.setup_speech_engine()
         self.recognizer = sr.Recognizer()
