@@ -31,7 +31,8 @@ A fully functional AI assistant inspired by Iron Man's JARVIS, powered by Google
 - Windows, macOS, or Linux
 - Microphone (for voice input)
 - Internet connection
-- Google Gemini API key (already included)
+- Google Gemini API key (get free at https://makersuite.google.com/app/apikey)
+- OpenWeatherMap API key (get free at https://openweathermap.org/api)
 
 ## 🚀 Installation
 
@@ -41,7 +42,24 @@ Make sure Python 3.7+ is installed:
 python --version
 ```
 
-### Step 2: Install Dependencies
+### Step 2: Clone the Repository
+```bash
+git clone https://github.com/Sumer-Singh-Rao/Jarvis-Assistant.git
+cd Jarvis-Assistant
+```
+
+### Step 3: Set Up API Keys
+1. Copy `.env.example` to `.env`:
+   ```bash
+   copy .env.example .env
+   ```
+2. Edit `.env` and add your API keys:
+   ```
+   GEMINI_API_KEY=your_gemini_api_key_here
+   WEATHER_API_KEY=your_openweathermap_api_key_here
+   ```
+
+### Step 4: Install Dependencies
 
 #### On Windows:
 ```bash
@@ -73,7 +91,7 @@ sudo apt-get install python3-pyaudio portaudio19-dev espeak
 pip install -r requirements.txt
 ```
 
-### Step 3: Verify Installation
+### Step 5: Verify Installation
 ```bash
 python jarvis_backend.py
 ```
@@ -222,9 +240,12 @@ You can extend JARVIS with:
 
 ## 🔐 Security
 
-- API key is embedded in code (for convenience)
-- For production use, store API key in environment variables
-- Don't share your API key publicly
+- **NEVER commit your `.env` file to GitHub**
+- API keys are stored in `.env` (already in .gitignore)
+- Get your free API keys:
+  - Gemini AI: https://makersuite.google.com/app/apikey
+  - Weather: https://openweathermap.org/api
+- For production use, consider using environment variables or secret management services
 
 ## 🤝 Contributing
 

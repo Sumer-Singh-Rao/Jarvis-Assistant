@@ -19,6 +19,10 @@ import google.generativeai as genai
 import pywhatkit as kit
 import pyautogui
 import wikipediaapi
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # For speech recognition and synthesis
 try:
@@ -34,10 +38,16 @@ except ImportError:
 class JarvisBackend:
     """Main backend class for JARVIS AI Assistant"""
     
-    def __init__(self, api_key: str, weather_api_key: str = "bd5e378503939ddaee76f12ad7a97608"):
+    def __init__(self, api_key: str = None, weather_api_key: str = None):
         """Initialize JARVIS with Gemini API key"""
-        self.api_key = api_key
-        self.weather_api_key = weather_api_key
+        # Load API keys from environment variables if not provided
+        self.api_key = api_key or os.getenv('GEMINI_API_KEY')
+        self.weather_api_key = weather_api_key or os.getenv('WEATHER_API_KEY')
+        
+        if not self.api_key:
+            raise ValueError("Gemini API key not found. Please set GEMINI_API_KEY in .env file")
+        if not self.weather_api_key:
+            print("Warning: Weather API key not found. Weather features will be limited.")
         self.setup_gemini()
         self.setup_speech_engine()
         self.recognizer = sr.Recognizer()
@@ -1145,9 +1155,8 @@ if __name__ == "__main__":
     print("JARVIS Backend Test")
     print("=" * 50)
     
-    # Initialize JARVIS
-    API_KEY = "AIzaSyDi1pyCQyCen--a1dkna1iAm8JP1M_-yXA"
-    jarvis = JarvisBackend(API_KEY)
+    # Initialize JARVIS (API key from .env)
+    jarvis = JarvisBackend()
     
     # Test commands
     test_commands = [

@@ -8,7 +8,12 @@ import threading
 import queue
 import sys
 import math
+import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Import backend
 try:
@@ -21,9 +26,9 @@ except ImportError:
 class JarvisGUI:
     """Animated GUI for JARVIS with glowing orb"""
     
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str = None):
         """Initialize the GUI"""
-        self.api_key = api_key
+        self.api_key = api_key or os.getenv('GEMINI_API_KEY')
         self.window = tk.Tk()
         self.window.title("J.A.R.V.I.S")
         self.window.geometry("1000x800")
@@ -438,10 +443,9 @@ if __name__ == "__main__":
     print("=" * 50)
     
     try:
-        API_KEY = "AIzaSyDi1pyCQyCen--a1dkna1iAm8JP1M_-yXA"
-        
+        # API key will be loaded from .env file
         print("Creating animated GUI...")
-        app = JarvisGUI(API_KEY)
+        app = JarvisGUI()
         print("GUI created successfully!")
         print("Starting main loop...")
         app.run()

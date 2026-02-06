@@ -6,6 +6,10 @@ Automatically installs dependencies and starts JARVIS
 import subprocess
 import sys
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def install_requirements():
     """Install required packages"""
@@ -19,6 +23,7 @@ def install_requirements():
         import google.generativeai
         import pyttsx3
         import speech_recognition
+        from dotenv import load_dotenv
         print("✓ All dependencies installed!")
         return True
     except ImportError:
@@ -85,7 +90,7 @@ def main():
             print("⚠️  Voice input disabled (PyAudio not installed)")
         try:
             import jarvis_frontend
-            app = jarvis_frontend.JarvisGUI("AIzaSyDi1pyCQyCen--a1dkna1iAm8JP1M_-yXA")
+            app = jarvis_frontend.JarvisGUI()
             app.run()
         except Exception as e:
             print(f"\n✗ Error starting GUI: {e}")
@@ -95,10 +100,7 @@ def main():
         print("\n🔧 Starting backend test...")
         try:
             import jarvis_backend
-            jarvis = jarvis_backend.JarvisBackend(
-                "AIzaSyDi1pyCQyCen--a1dkna1iAm8JP1M_-yXA",
-                weather_api_key="bd5e378503939ddaee76f12ad7a97608"
-            )
+            jarvis = jarvis_backend.JarvisBackend()
             
             print("\n" + "=" * 60)
             print("✓ Backend initialized successfully!")

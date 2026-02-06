@@ -8,6 +8,9 @@ env/
 venv/
 ENV/
 
+# Environment variables (API Keys)
+.env
+
 # PyWhatKit
 PyWhatKit_DB.txt
 
